@@ -3,9 +3,10 @@ import edu.uci.ics.jung.graph.UndirectedSparseGraph;
 
 public class GraphProvider {
 
-    private static Graph<Node, Edge> definedGraph;
+    private static GraphProvider instance;
+    private Graph<Node, Edge> definedGraph;
 
-    static {
+    {
         definedGraph = new UndirectedSparseGraph<>();
         Node[] nodes = new Node[5];
         nodes[0] = new Node();
@@ -16,9 +17,16 @@ public class GraphProvider {
         definedGraph.addEdge(new Edge(), nodes[0], nodes[4]);
         definedGraph.addEdge(new Edge(), nodes[0], nodes[3]);
         Edge hidden = new Edge();
-        hidden.setState(Edge.State.HIDDEN);
+        hidden.setVisible(false);
         definedGraph.addEdge(hidden, nodes[2], nodes[4]);
     }
 
-    public static Graph<Node, Edge> getDefinedGraph() { return definedGraph;}
+    private GraphProvider(){}
+
+    public static GraphProvider getInstance() {
+        if (instance == null) instance = new GraphProvider();
+        return instance;
+    }
+
+    public Graph<Node, Edge> getDefinedGraph() { return definedGraph;}
 }

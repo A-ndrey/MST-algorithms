@@ -6,7 +6,7 @@ public class Edge {
 
     private int id;
     private int weight;
-    private State state = State.VISIBLE;
+    private boolean isVisible = true;
 
     Edge(){
         this(1);
@@ -21,16 +21,16 @@ public class Edge {
         this.weight = weight;
     }
 
-    public void setState(State state){
-        this.state = state;
+    public void setVisible(boolean visible){
+        this.isVisible = visible;
     }
 
     public int getWeight() {
         return weight;
     }
 
-    public State getState() {
-        return state;
+    public boolean isVisible() {
+        return isVisible;
     }
 
     @Override
@@ -53,9 +53,5 @@ public class Edge {
                 "id=" + id +
                 ", weight=" + weight +
                 '}';
-    }
-
-    enum State{
-        VISIBLE, HIDDEN
     }
 }

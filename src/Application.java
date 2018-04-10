@@ -5,12 +5,10 @@ import edu.uci.ics.jung.visualization.RenderContext;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import edu.uci.ics.jung.visualization.renderers.DefaultEdgeLabelRenderer;
 import edu.uci.ics.jung.visualization.renderers.Renderer;
-import org.apache.commons.collections15.Transformer;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
-import java.util.function.Function;
 
 public class Application extends JFrame {
 
@@ -20,7 +18,8 @@ public class Application extends JFrame {
     }
 
     public void start(){
-        Layout<Node, Edge> layout = new CircleLayout(GraphProvider.getDefinedGraph());
+        new SimpleTestingAlgorithm().start(GraphProvider.getInstance().getDefinedGraph());
+        Layout<Node, Edge> layout = new CircleLayout(GraphProvider.getInstance().getDefinedGraph());
         layout.setSize(new Dimension(600,600));
         BasicVisualizationServer<Node,Edge> vv = new BasicVisualizationServer<>(layout);
         vv.setPreferredSize(new Dimension(650,650));
@@ -37,13 +36,13 @@ public class Application extends JFrame {
         vv.getRenderer().getVertexLabelRenderer().setPosition(Renderer.VertexLabel.Position.CNTR);
         vv.setBackground(Color.WHITE);
         context.setEdgeLabelTransformer(edge -> Integer.toString(edge.getWeight()));
-        context.setEdgeDrawPaintTransformer(edge -> edge.getState() == Edge.State.VISIBLE ? Color.BLACK : Color.LIGHT_GRAY);
+        context.setEdgeDrawPaintTransformer(edge -> edge.isVisible() ? Color.BLACK : Color.LIGHT_GRAY);
         context.setEdgeShapeTransformer(new EdgeShape.Line<>());
         context.setEdgeLabelRenderer(new DefaultEdgeLabelRenderer(Color.LIGHT_GRAY){
             @Override
             public <E> Component getEdgeLabelRendererComponent(JComponent vv, Object value, Font font, boolean isSelected, E edge) {
                 super.getEdgeLabelRendererComponent(vv, value, font, isSelected, edge);
-                setForeground(((Edge)edge).getState() == Edge.State.VISIBLE ? Color.BLACK : Color.LIGHT_GRAY);
+                setForeground(((Edge)edge).isVisible() ? Color.BLACK : Color.LIGHT_GRAY);
                 return this;
             }
         });
