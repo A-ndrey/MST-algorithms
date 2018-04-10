@@ -1,5 +1,3 @@
-import sun.swing.SwingUtilities2;
-
 import javax.swing.*;
 
 public class Main {

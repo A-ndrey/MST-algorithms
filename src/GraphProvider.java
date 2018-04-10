@@ -13,8 +13,11 @@ public class GraphProvider {
             nodes[i+1] = new Node();
             definedGraph.addEdge(new Edge(), nodes[i], nodes[i+1]);
         }
+        definedGraph.addEdge(new Edge(), nodes[0], nodes[4]);
         definedGraph.addEdge(new Edge(), nodes[0], nodes[3]);
-        definedGraph.addEdge(new Edge(), nodes[2], nodes[4]);
+        Edge hidden = new Edge();
+        hidden.setState(Edge.State.HIDDEN);
+        definedGraph.addEdge(hidden, nodes[2], nodes[4]);
     }
 
     public static Graph<Node, Edge> getDefinedGraph() { return definedGraph;}
