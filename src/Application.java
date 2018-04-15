@@ -1,5 +1,8 @@
+import algorithms.PrimsAlgorithm;
 import algorithms.SimpleTestingAlgorithm;
+import edu.uci.ics.jung.algorithms.layout.AggregateLayout;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
+import edu.uci.ics.jung.algorithms.layout.ISOMLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 import edu.uci.ics.jung.visualization.RenderContext;
@@ -21,8 +24,9 @@ public class Application extends JFrame {
     }
 
     public void start(){
-        new SimpleTestingAlgorithm().start(GraphProvider.getInstance().getDefinedGraph());
-        Layout<Vertex, Edge> layout = new CircleLayout(GraphProvider.getInstance().getDefinedGraph());
+        GraphProvider.getInstance().getDefinedGraph().getEdges().forEach( e -> e.setVisible(false));
+        new PrimsAlgorithm().start(GraphProvider.getInstance().getDefinedGraph());
+        Layout<Vertex, Edge> layout = new ISOMLayout<>(GraphProvider.getInstance().getDefinedGraph());
         layout.setSize(new Dimension(600,600));
         BasicVisualizationServer<Vertex,Edge> vv = new BasicVisualizationServer<>(layout);
         vv.setPreferredSize(new Dimension(650,650));

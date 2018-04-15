@@ -8,6 +8,10 @@ public class Vertex {
 
     private int number;
 
+    private int key = Integer.MAX_VALUE;
+
+    private Vertex parent;
+
     public Vertex(){
         number = ++numberOfNodes;
     }
@@ -17,6 +21,22 @@ public class Vertex {
     }
 
     public int getNumber() {return number;}
+
+    public int getKey() {
+        return key;
+    }
+
+    public void setKey(int key) {
+        this.key = key;
+    }
+
+    public Vertex getParent() {
+        return parent;
+    }
+
+    public void setParent(Vertex parent) {
+        this.parent = parent;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -34,8 +54,8 @@ public class Vertex {
 
     @Override
     public String toString() {
-        return "graph_elements.Vertex{" +
+        return "Vertex{" +
                 "number=" + number +
-                '}';
+                ", key=" + key + '}';
     }
 }

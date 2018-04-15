@@ -14,7 +14,7 @@ public class Edge {
         this(1);
     }
 
-    Edge(int weight){
+    public Edge(int weight){
         this(++numberOfEdges, weight);
     }
 
