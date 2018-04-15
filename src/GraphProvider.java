@@ -1,24 +1,26 @@
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.UndirectedSparseGraph;
+import graph_elements.Edge;
+import graph_elements.Vertex;
 
 public class GraphProvider {
 
     private static GraphProvider instance;
-    private Graph<Node, Edge> definedGraph;
+    private Graph<Vertex, Edge> definedGraph;
 
     {
         definedGraph = new UndirectedSparseGraph<>();
-        Node[] nodes = new Node[5];
-        nodes[0] = new Node();
-        for (int i = 0; i < nodes.length-1; i++) {
-            nodes[i+1] = new Node();
-            definedGraph.addEdge(new Edge(), nodes[i], nodes[i+1]);
+        Vertex[] vertices = new Vertex[5];
+        vertices[0] = new Vertex();
+        for (int i = 0; i < vertices.length-1; i++) {
+            vertices[i+1] = new Vertex();
+            definedGraph.addEdge(new Edge(), vertices[i], vertices[i+1]);
         }
-        definedGraph.addEdge(new Edge(), nodes[0], nodes[4]);
-        definedGraph.addEdge(new Edge(), nodes[0], nodes[3]);
+        definedGraph.addEdge(new Edge(), vertices[0], vertices[4]);
+        definedGraph.addEdge(new Edge(), vertices[0], vertices[3]);
         Edge hidden = new Edge();
         hidden.setVisible(false);
-        definedGraph.addEdge(hidden, nodes[2], nodes[4]);
+        definedGraph.addEdge(hidden, vertices[2], vertices[4]);
     }
 
     private GraphProvider(){}
@@ -28,5 +30,5 @@ public class GraphProvider {
         return instance;
     }
 
-    public Graph<Node, Edge> getDefinedGraph() { return definedGraph;}
+    public Graph<Vertex, Edge> getDefinedGraph() { return definedGraph;}
 }

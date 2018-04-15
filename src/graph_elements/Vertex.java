@@ -1,16 +1,18 @@
+package graph_elements;
+
 import java.util.Objects;
 
-public class Node {
+public class Vertex {
 
     private static int numberOfNodes;
 
     private int number;
 
-    Node(){
+    public Vertex(){
         number = ++numberOfNodes;
     }
 
-    Node(int number){
+    Vertex(int number){
         this.number = number;
     }
 
@@ -20,8 +22,8 @@ public class Node {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Node node = (Node) o;
-        return number == node.number;
+        Vertex vertex = (Vertex) o;
+        return number == vertex.number;
     }
 
     @Override
@@ -32,7 +34,7 @@ public class Node {
 
     @Override
     public String toString() {
-        return "Node{" +
+        return "graph_elements.Vertex{" +
                 "number=" + number +
                 '}';
     }

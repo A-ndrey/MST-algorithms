@@ -1,3 +1,5 @@
+package graph_elements;
+
 import java.util.Objects;
 
 public class Edge {
@@ -8,7 +10,7 @@ public class Edge {
     private int weight;
     private boolean isVisible = true;
 
-    Edge(){
+    public Edge(){
         this(1);
     }
 
@@ -49,7 +51,7 @@ public class Edge {
 
     @Override
     public String toString() {
-        return "Edge{" +
+        return "graph_elements.Edge{" +
                 "id=" + id +
                 ", weight=" + weight +
                 '}';

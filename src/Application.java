@@ -1,3 +1,4 @@
+import algorithms.SimpleTestingAlgorithm;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
@@ -5,6 +6,8 @@ import edu.uci.ics.jung.visualization.RenderContext;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import edu.uci.ics.jung.visualization.renderers.DefaultEdgeLabelRenderer;
 import edu.uci.ics.jung.visualization.renderers.Renderer;
+import graph_elements.Edge;
+import graph_elements.Vertex;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,9 +22,9 @@ public class Application extends JFrame {
 
     public void start(){
         new SimpleTestingAlgorithm().start(GraphProvider.getInstance().getDefinedGraph());
-        Layout<Node, Edge> layout = new CircleLayout(GraphProvider.getInstance().getDefinedGraph());
+        Layout<Vertex, Edge> layout = new CircleLayout(GraphProvider.getInstance().getDefinedGraph());
         layout.setSize(new Dimension(600,600));
-        BasicVisualizationServer<Node,Edge> vv = new BasicVisualizationServer<>(layout);
+        BasicVisualizationServer<Vertex,Edge> vv = new BasicVisualizationServer<>(layout);
         vv.setPreferredSize(new Dimension(650,650));
         setStyle(vv);
 
@@ -30,8 +33,8 @@ public class Application extends JFrame {
         setVisible(true);
     }
 
-    private void setStyle(BasicVisualizationServer<Node, Edge> vv){
-        RenderContext<Node, Edge> context = vv.getRenderContext();
+    private void setStyle(BasicVisualizationServer<Vertex, Edge> vv){
+        RenderContext<Vertex, Edge> context = vv.getRenderContext();
 
         vv.getRenderer().getVertexLabelRenderer().setPosition(Renderer.VertexLabel.Position.CNTR);
         vv.setBackground(Color.WHITE);
