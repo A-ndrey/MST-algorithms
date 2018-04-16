@@ -13,7 +13,10 @@ public class PrimsAlgorithm implements Algorithm {
     @Override
     public void start(Graph<Vertex, Edge> graph) {
         PriorityQueue<Vertex> vertexPriorityQueue = new PriorityQueue<>(Comparator.comparingInt(Vertex::getKey));
-        vertexPriorityQueue.addAll(graph.getVertices());
+        graph.getVertices().forEach( v -> {
+            v.setKey(Integer.MAX_VALUE);
+            vertexPriorityQueue.add(v);
+        });
         vertexPriorityQueue.peek().setKey(0);
 
         while (!vertexPriorityQueue.isEmpty()) {
