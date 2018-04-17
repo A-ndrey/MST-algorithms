@@ -6,10 +6,9 @@ import graph_elements.Vertex;
 public class GraphProvider {
 
     private static GraphProvider instance;
-    private Graph<Vertex, Edge> definedGraph;
 
-    {
-        definedGraph = new UndirectedSparseGraph<>();
+    public Graph<Vertex, Edge> getDefinedGraph() {
+        Graph<Vertex, Edge> definedGraph = new UndirectedSparseGraph<>();
         Vertex[] vertices = new Vertex[9];
         for (int i = 0; i < vertices.length; i++) {
             vertices[i] = new Vertex();
@@ -28,6 +27,8 @@ public class GraphProvider {
         definedGraph.addEdge(new Edge(1), vertices[6], vertices[7]);
         definedGraph.addEdge(new Edge(6), vertices[6], vertices[8]);
         definedGraph.addEdge(new Edge(7), vertices[7], vertices[8]);
+
+        return definedGraph;
     }
 
     private GraphProvider(){}
@@ -36,6 +37,4 @@ public class GraphProvider {
         if (instance == null) instance = new GraphProvider();
         return instance;
     }
-
-    public Graph<Vertex, Edge> getDefinedGraph() { return definedGraph;}
 }
