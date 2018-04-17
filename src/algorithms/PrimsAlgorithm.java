@@ -14,7 +14,7 @@ public class PrimsAlgorithm implements Algorithm {
 
     @Override
     public void start(Graph<Vertex, Edge> graph) {
-        PriorityQueue<Vertex> vertexPriorityQueue = new PriorityQueue<>(Comparator.comparingInt(Vertex::getKey));
+        PriorityQueue<Vertex> vertexPriorityQueue = new PriorityQueue<>(graph.getVertexCount(), Comparator.comparingInt(Vertex::getKey));
         graph.getVertices().forEach( v -> {
             v.setKey(Integer.MAX_VALUE);
             v.setParent(null);
@@ -25,7 +25,7 @@ public class PrimsAlgorithm implements Algorithm {
         while (!vertexPriorityQueue.isEmpty()) {
             Vertex u = vertexPriorityQueue.poll();
             markEdge(u, graph);
-            getNeighborsTree(u, graph).forEach(v -> {
+            graph.getNeighbors(u).forEach(v -> {
                 if (vertexPriorityQueue.contains(v)) {
                     Edge edge = findEdge(u, v, graph);
                     Pair<Vertex> p = graph.getEndpoints(edge);
@@ -39,15 +39,6 @@ public class PrimsAlgorithm implements Algorithm {
                 }
             });
         }
-    }
-
-    private Set<Vertex> getNeighborsTree(Vertex source, Graph<Vertex, Edge> graph) {
-        Set<Vertex> set = new HashSet<>(graph.getNeighbors(source));
-        if (source.getParent() != null) {
-            set.addAll(getNeighborsTree((Vertex) source.getParent(), graph));
-            set.remove(source);
-        }
-        return set;
     }
 
     private Edge findEdge(Vertex u, Vertex v, Graph<Vertex, Edge> graph) {

@@ -1,21 +1,25 @@
 import algorithms.Algorithm;
+import edu.uci.ics.jung.graph.Graph;
 import graph_elements.Edge;
+import graph_elements.Vertex;
 
 import java.util.Collection;
+import java.util.Collections;
 
 public class TestAlgorithms {
 
     private Algorithm algorithm;
+    private Graph<Vertex, Edge> graph;
 
-    public TestAlgorithms(Algorithm algorithm){
+    public TestAlgorithms(Graph<Vertex, Edge> graph, Algorithm algorithm){
+        this.graph = graph;
         this.algorithm = algorithm;
     }
 
     public void start(){
-        GraphProvider.getInstance().getDefinedGraph().getEdges().forEach( e -> e.setVisible(false));
-        algorithm.start(GraphProvider.getInstance().getDefinedGraph());
-        int allEdgesWeightsSum = getAllEdgesWeightsSum(GraphProvider.getInstance().getDefinedGraph().getEdges());
-        int visibleEdgesWeightsSum = getVisibleEdgesWeightsSum(GraphProvider.getInstance().getDefinedGraph().getEdges());
+        algorithm.start(graph);
+        int allEdgesWeightsSum = getAllEdgesWeightsSum(graph.getEdges());
+        int visibleEdgesWeightsSum = getVisibleEdgesWeightsSum(graph.getEdges());
         System.out.printf("%s\nallEdges=%d\ninTree=%d\n\n", algorithm.getClass().getSimpleName(), allEdgesWeightsSum, visibleEdgesWeightsSum);
     }
 

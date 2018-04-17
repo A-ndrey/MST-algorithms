@@ -3,6 +3,8 @@ import edu.uci.ics.jung.graph.UndirectedSparseGraph;
 import graph_elements.Edge;
 import graph_elements.Vertex;
 
+import java.util.Random;
+
 public class GraphProvider {
 
     private static GraphProvider instance;
@@ -29,6 +31,35 @@ public class GraphProvider {
         definedGraph.addEdge(new Edge(7), vertices[7], vertices[8]);
 
         return definedGraph;
+    }
+
+    public Graph<Vertex, Edge> getRandomCreated(int numberOfVertex) {
+
+        int MIN_WEIGHT = 1;
+        int MAX_WEIGHT = 20;
+
+        Random random = new Random(42);
+
+        Graph<Vertex, Edge> graph = new UndirectedSparseGraph<>();
+
+        Vertex[] vertices = new Vertex[numberOfVertex];
+        for (int i = 0; i < vertices.length; i++) {
+            vertices[i] = new Vertex();
+        }
+
+        Vertex v1 = vertices[0];
+        for (int i = 1; i < numberOfVertex; ++i) {
+            Vertex v2 = vertices[i];
+            graph.addEdge(new Edge(random.nextInt(MAX_WEIGHT - MIN_WEIGHT) + MIN_WEIGHT), v1, v2);
+            Vertex tempV = vertices[random.nextInt(i)];
+            if (random.nextInt(5) < 3)
+                graph.addEdge(new Edge(random.nextInt(MAX_WEIGHT - MIN_WEIGHT) + MIN_WEIGHT), v2, tempV);
+            if (random.nextInt(3) > 0) {
+                v1 = v2;
+            }
+        }
+
+        return graph;
     }
 
     private GraphProvider(){}

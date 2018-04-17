@@ -5,8 +5,9 @@ public class Main {
 
     public static void main(String[] args) {
 //        SwingUtilities.invokeLater(() -> new Application().start());
-        new TestAlgorithms(new KruskalsAlgorithm()).start();
-        new TestAlgorithms(new PrimsAlgorithm()).start();
+        int numberOfVertex = 20000;
+        new TestAlgorithms(GraphProvider.getInstance().getRandomCreated(numberOfVertex), new KruskalsAlgorithm()).start();
+        new TestAlgorithms(GraphProvider.getInstance().getRandomCreated(numberOfVertex), new PrimsAlgorithm()).start();
     }
 
 
