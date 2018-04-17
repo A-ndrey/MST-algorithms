@@ -8,7 +8,7 @@ public class Edge {
 
     private int id;
     private int weight;
-    private boolean isVisible = true;
+    private boolean isVisible;
 
     public Edge(){
         this(1);

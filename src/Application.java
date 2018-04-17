@@ -1,3 +1,4 @@
+import algorithms.KruskalsAlgorithm;
 import algorithms.PrimsAlgorithm;
 import algorithms.SimpleTestingAlgorithm;
 import edu.uci.ics.jung.algorithms.layout.AggregateLayout;
@@ -25,7 +26,8 @@ public class Application extends JFrame {
 
     public void start(){
         GraphProvider.getInstance().getDefinedGraph().getEdges().forEach( e -> e.setVisible(false));
-        new PrimsAlgorithm().start(GraphProvider.getInstance().getDefinedGraph());
+//        new PrimsAlgorithm().start(GraphProvider.getInstance().getDefinedGraph());
+        new KruskalsAlgorithm().start(GraphProvider.getInstance().getDefinedGraph());
         Layout<Vertex, Edge> layout = new ISOMLayout<>(GraphProvider.getInstance().getDefinedGraph());
         layout.setSize(new Dimension(600,600));
         BasicVisualizationServer<Vertex,Edge> vv = new BasicVisualizationServer<>(layout);

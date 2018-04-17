@@ -2,26 +2,16 @@ package advanced_data_structure;
 
 public class DisjointSetForest {
 
-    private static DisjointSetForest instance;
-
-    private DisjointSetForest() {
-    }
-
-    public static DisjointSetForest getInstance() {
-        if (instance == null) instance = new DisjointSetForest();
-        return instance;
-    }
-
-    public void makeSet(DSFVertex vertex) {
+    public static void makeSet(Vertex vertex) {
         vertex.setKey(0);
         vertex.setParent(vertex);
     }
 
-    public void union(DSFVertex vertex1, DSFVertex vertex2) {
+    public static void union(Vertex vertex1, Vertex vertex2) {
         link(findSet(vertex1), findSet(vertex2));
     }
 
-    private void link(DSFVertex vertex1, DSFVertex vertex2) {
+    private static void link(Vertex vertex1, Vertex vertex2) {
         if (vertex1.getKey() > vertex2.getKey()) {
             vertex2.setParent(vertex1);
         } else {
@@ -32,11 +22,34 @@ public class DisjointSetForest {
         }
     }
 
-    public DSFVertex findSet(DSFVertex vertex) {
+    public static Vertex findSet(Vertex vertex) {
         if (vertex != vertex.getParent()){
             vertex.setParent(findSet(vertex.getParent()));
         }
         return vertex.getParent();
+    }
+
+    public static class Vertex {
+
+        private int key;
+
+        private Vertex parent;
+
+        public int getKey() {
+            return key;
+        }
+
+        public void setKey(int key) {
+            this.key = key;
+        }
+
+        public Vertex getParent() {
+            return parent;
+        }
+
+        public void setParent(Vertex parent) {
+            this.parent = parent;
+        }
     }
 
 }

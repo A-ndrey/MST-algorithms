@@ -1,12 +1,14 @@
 package algorithms;
 
-import com.sun.istack.internal.Nullable;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Pair;
 import graph_elements.Edge;
 import graph_elements.Vertex;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.PriorityQueue;
+import java.util.Set;
 
 public class PrimsAlgorithm implements Algorithm {
 
@@ -15,6 +17,7 @@ public class PrimsAlgorithm implements Algorithm {
         PriorityQueue<Vertex> vertexPriorityQueue = new PriorityQueue<>(Comparator.comparingInt(Vertex::getKey));
         graph.getVertices().forEach( v -> {
             v.setKey(Integer.MAX_VALUE);
+            v.setParent(null);
             vertexPriorityQueue.add(v);
         });
         vertexPriorityQueue.peek().setKey(0);
@@ -41,14 +44,14 @@ public class PrimsAlgorithm implements Algorithm {
     private Set<Vertex> getNeighborsTree(Vertex source, Graph<Vertex, Edge> graph) {
         Set<Vertex> set = new HashSet<>(graph.getNeighbors(source));
         if (source.getParent() != null) {
-            set.addAll(getNeighborsTree(source.getParent(), graph));
+            set.addAll(getNeighborsTree((Vertex) source.getParent(), graph));
             set.remove(source);
         }
         return set;
     }
 
     private Edge findEdge(Vertex u, Vertex v, Graph<Vertex, Edge> graph) {
-        Edge parentEdge = u.getParent() == null ? null : findEdge(u.getParent(), v, graph);
+        Edge parentEdge = u.getParent() == null ? null : findEdge((Vertex) u.getParent(), v, graph);
         Edge edge = graph.findEdge(u, v);
         if (parentEdge == null) return edge;
         if (edge == null) return parentEdge;
@@ -57,6 +60,6 @@ public class PrimsAlgorithm implements Algorithm {
 
     private void markEdge(Vertex vertex, Graph<Vertex, Edge> graph) {
         if (vertex.getParent() == null) return;
-        graph.findEdge(vertex, vertex.getParent()).setVisible(true);
+        graph.findEdge(vertex, (Vertex) vertex.getParent()).setVisible(true);
     }
 }

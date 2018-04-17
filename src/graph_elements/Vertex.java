@@ -1,10 +1,10 @@
 package graph_elements;
 
-import advanced_data_structure.DSFVertex;
+import advanced_data_structure.DisjointSetForest;
 
 import java.util.Objects;
 
-public class Vertex extends DSFVertex {
+public class Vertex extends DisjointSetForest.Vertex {
 
     private static int numberOfNodes;
 
