@@ -9,6 +9,7 @@ public class Edge {
     private int id;
     private int weight;
     private boolean isVisible;
+    private Edge origin = this;
 
     public Edge(){
         this(1);
@@ -29,6 +30,10 @@ public class Edge {
 
     public int getWeight() {
         return weight;
+    }
+
+    public void setWeight(int weight){
+        this.weight = weight;
     }
 
     public boolean isVisible() {
@@ -55,5 +60,13 @@ public class Edge {
                 "id=" + id +
                 ", weight=" + weight +
                 '}';
+    }
+
+    public Edge getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(Edge origin) {
+        this.origin = origin;
     }
 }

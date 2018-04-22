@@ -9,6 +9,7 @@ public class Vertex extends DisjointSetForest.Vertex {
     private static int numberOfNodes;
 
     private int number;
+    private boolean isMarked;
 
     public Vertex(){
         number = ++numberOfNodes;
@@ -40,5 +41,13 @@ public class Vertex extends DisjointSetForest.Vertex {
         return "Vertex{" +
                 "number=" + number +
                 ", key=" + getKey() + '}';
+    }
+
+    public boolean isMarked() {
+        return isMarked;
+    }
+
+    public void setMarked(boolean marked) {
+        isMarked = marked;
     }
 }

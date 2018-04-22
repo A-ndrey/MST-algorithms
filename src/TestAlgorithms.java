@@ -9,18 +9,19 @@ import java.util.Collections;
 public class TestAlgorithms {
 
     private Algorithm algorithm;
-    private Graph<Vertex, Edge> graph;
 
-    public TestAlgorithms(Graph<Vertex, Edge> graph, Algorithm algorithm){
-        this.graph = graph;
+    public TestAlgorithms(Algorithm algorithm){
         this.algorithm = algorithm;
     }
 
-    public void start(){
+    public void start(Graph<Vertex, Edge> graph){
+        long start = System.nanoTime();
         algorithm.start(graph);
+        long end = System.nanoTime();
         int allEdgesWeightsSum = getAllEdgesWeightsSum(graph.getEdges());
         int visibleEdgesWeightsSum = getVisibleEdgesWeightsSum(graph.getEdges());
-        System.out.printf("%s\nallEdges=%d\ninTree=%d\n\n", algorithm.getClass().getSimpleName(), allEdgesWeightsSum, visibleEdgesWeightsSum);
+        System.out.printf("%s\nTotal weights for all edges: %d\nTotal weights for edges in tree: %d\nTime: %d\n\n",
+                algorithm.getClass().getSimpleName(), allEdgesWeightsSum, visibleEdgesWeightsSum, end-start);
     }
 
     private static int getVisibleEdgesWeightsSum(Collection<Edge> edges){
