@@ -27,7 +27,7 @@ public class PrimsAlgorithm implements Algorithm {
             markEdge(u, graph);
             graph.getNeighbors(u).forEach(v -> {
                 if (vertexPriorityQueue.contains(v)) {
-                    Edge edge = findEdge(u, v, graph);
+                    Edge edge = graph.findEdge(u,v);
                     Pair<Vertex> p = graph.getEndpoints(edge);
                     Vertex u1 = p.getFirst().equals(v) ? p.getSecond() : p.getFirst();
                     if (edge.getWeight() < v.getKey()){
@@ -39,14 +39,6 @@ public class PrimsAlgorithm implements Algorithm {
                 }
             });
         }
-    }
-
-    private Edge findEdge(Vertex u, Vertex v, Graph<Vertex, Edge> graph) {
-        Edge parentEdge = u.getParent() == null ? null : findEdge((Vertex) u.getParent(), v, graph);
-        Edge edge = graph.findEdge(u, v);
-        if (parentEdge == null) return edge;
-        if (edge == null) return parentEdge;
-        return edge.getWeight() <= parentEdge.getWeight()? edge : parentEdge;
     }
 
     private void markEdge(Vertex vertex, Graph<Vertex, Edge> graph) {
