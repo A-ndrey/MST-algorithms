@@ -1,7 +1,4 @@
-import algorithms.BoruvkasAlgorithm;
-import algorithms.KruskalsAlgorithm;
-import algorithms.PrimsAlgorithm;
-import algorithms.SimpleTestingAlgorithm;
+import algorithms.*;
 import edu.uci.ics.jung.algorithms.layout.AggregateLayout;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.ISOMLayout;
@@ -21,24 +18,16 @@ import java.awt.geom.Ellipse2D;
 
 public class Application extends JFrame {
 
-    Graph<Vertex, Edge> graph;
+    private Algorithm algorithm;
 
-    Application(){
-        this(GraphProvider.getInstance().getDefinedGraph());
-    }
-
-    Application(Graph<Vertex, Edge> graph){
-        super("Application");
+    Application(Algorithm algorithm){
+        super(algorithm.getClass().getSimpleName());
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.graph = graph;
+        this.algorithm = algorithm;
     }
 
-    public void start(){
-
-        graph.getEdges().forEach(e -> e.setVisible(false));
-//        new PrimsAlgorithm().start(graph);
-//        new KruskalsAlgorithm().start(graph);
-        new BoruvkasAlgorithm().start(graph);
+    public void start(Graph<Vertex, Edge> graph){
+        algorithm.start(graph);
         Layout<Vertex, Edge> layout = new ISOMLayout<>(graph);
         layout.setSize(new Dimension(600,600));
         BasicVisualizationServer<Vertex,Edge> vv = new BasicVisualizationServer<>(layout);

@@ -21,6 +21,9 @@ public class Vertex extends DisjointSetForest.Vertex {
 
     public int getNumber() {return number;}
 
+    public static void clear(){
+        numberOfNodes = 0;
+    }
 
     @Override
     public boolean equals(Object o) {

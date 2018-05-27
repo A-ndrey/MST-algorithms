@@ -18,10 +18,11 @@ public class TestAlgorithms {
         long start = System.nanoTime();
         algorithm.start(graph);
         long end = System.nanoTime();
-        int allEdgesWeightsSum = getAllEdgesWeightsSum(graph.getEdges());
-        int visibleEdgesWeightsSum = getVisibleEdgesWeightsSum(graph.getEdges());
-        System.out.printf("%s\nTotal weights for all edges: %d\nTotal weights for edges in tree: %d\nTime: %d\n\n",
-                algorithm.getClass().getSimpleName(), allEdgesWeightsSum, visibleEdgesWeightsSum, end-start);
+//        int allEdgesWeightsSum = getAllEdgesWeightsSum(graph.getEdges());
+//        int visibleEdgesWeightsSum = getVisibleEdgesWeightsSum(graph.getEdges());
+//        System.out.printf("%s\nTotal weights for all edges: %d\nTotal weights for edges in tree: %d\nTime: %d\n\n",
+//                algorithm.getClass().getSimpleName(), allEdgesWeightsSum, visibleEdgesWeightsSum, end-start);
+        System.out.printf("%s\nCount of vertices: %d\nTime (in Nano): %d\n\n" , algorithm.getClass().getSimpleName(), graph.getVertexCount(), end-start);
     }
 
     private static int getVisibleEdgesWeightsSum(Collection<Edge> edges){

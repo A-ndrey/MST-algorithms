@@ -8,9 +8,11 @@ import java.util.Random;
 public class GraphProvider {
 
     private static GraphProvider instance;
+    private static final int SEED = new Random().nextInt();
 
     public Graph<Vertex, Edge> getDefinedGraph() {
         Graph<Vertex, Edge> definedGraph = new UndirectedSparseGraph<>();
+        Vertex.clear();
         Vertex[] vertices = new Vertex[9];
         for (int i = 0; i < vertices.length; i++) {
             vertices[i] = new Vertex();
@@ -33,12 +35,14 @@ public class GraphProvider {
         return definedGraph;
     }
 
-    public Graph<Vertex, Edge> getRandomCreated(int numberOfVertex) {
+    public Graph<Vertex, Edge> getRandomCreated(int numberOfVertex, boolean isStronglyConnected) {
+
+        Vertex.clear();
 
         int MIN_WEIGHT = 1;
         int MAX_WEIGHT = 20;
 
-        Random random = new Random(42);
+        Random random = new Random(SEED);
 
         Graph<Vertex, Edge> graph = new UndirectedSparseGraph<>();
 
@@ -47,15 +51,15 @@ public class GraphProvider {
             vertices[i] = new Vertex();
         }
 
-        Vertex v1 = vertices[0];
         for (int i = 1; i < numberOfVertex; ++i) {
+            Vertex v1 = vertices[random.nextInt(i)];
             Vertex v2 = vertices[i];
             graph.addEdge(new Edge(random.nextInt(MAX_WEIGHT - MIN_WEIGHT) + MIN_WEIGHT), v1, v2);
             Vertex tempV = vertices[random.nextInt(i)];
             if (random.nextInt(5) < 3)
                 graph.addEdge(new Edge(random.nextInt(MAX_WEIGHT - MIN_WEIGHT) + MIN_WEIGHT), v2, tempV);
-            if (random.nextInt(3) > 0) {
-                v1 = v2;
+            if(isStronglyConnected && random.nextInt(4) < 2) {
+                --i;
             }
         }
 
