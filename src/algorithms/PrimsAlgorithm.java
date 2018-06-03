@@ -1,40 +1,39 @@
 package algorithms;
 
+import advanced_data_structure.FibHeap;
 import edu.uci.ics.jung.graph.Graph;
-import edu.uci.ics.jung.graph.util.Pair;
 import graph_elements.Edge;
 import graph_elements.Vertex;
 
 import java.util.Comparator;
-import java.util.HashSet;
-import java.util.PriorityQueue;
-import java.util.Set;
 
 public class PrimsAlgorithm implements Algorithm {
 
     @Override
     public void start(Graph<Vertex, Edge> graph) {
-        PriorityQueue<Vertex> vertexPriorityQueue = new PriorityQueue<>(graph.getVertexCount(), Comparator.comparingInt(Vertex::getKey));
+        FibHeap<Vertex> vertexPriorityQueue = new FibHeap<>();
+//        PriorityQueue<Vertex> vertexPriorityQueue = new PriorityQueue<>(graph.getVertexCount(), Comparator.comparingInt(Vertex::getKey));
         graph.getVertices().forEach( v -> {
             v.setKey(Integer.MAX_VALUE);
+            v.setMarked(false);
             v.setParent(null);
-            vertexPriorityQueue.add(v);
+            v.setNode(vertexPriorityQueue.enqueue(v, v.getKey()));
         });
-        vertexPriorityQueue.peek().setKey(0);
+        Vertex vert = vertexPriorityQueue.min().getValue();
+        vert.setKey(0);
+        vertexPriorityQueue.decreaseKey(vert.getNode() , vert.getKey());
 
         while (!vertexPriorityQueue.isEmpty()) {
-            Vertex u = vertexPriorityQueue.poll();
+            Vertex u = vertexPriorityQueue.dequeueMin().getValue();
+            u.setMarked(true);
             markEdge(u, graph);
             graph.getNeighbors(u).forEach(v -> {
-                if (vertexPriorityQueue.contains(v)) {
+                if (!v.isMarked()) {
                     Edge edge = graph.findEdge(u,v);
-                    Pair<Vertex> p = graph.getEndpoints(edge);
-                    Vertex u1 = p.getFirst().equals(v) ? p.getSecond() : p.getFirst();
                     if (edge.getWeight() < v.getKey()){
-                        v.setParent(u1);
+                        v.setParent(u);
                         v.setKey(edge.getWeight());
-                        vertexPriorityQueue.remove(v);
-                        vertexPriorityQueue.add(v);
+                        vertexPriorityQueue.decreaseKey(v.getNode(), v.getKey());
                     }
                 }
             });
@@ -43,6 +42,6 @@ public class PrimsAlgorithm implements Algorithm {
 
     private void markEdge(Vertex vertex, Graph<Vertex, Edge> graph) {
         if (vertex.getParent() == null) return;
-        graph.findEdge(vertex, (Vertex) vertex.getParent()).setVisible(true);
+        graph.findEdge(vertex, vertex.getParent()).setVisible(true);
     }
 }

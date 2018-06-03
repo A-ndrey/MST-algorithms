@@ -1,5 +1,7 @@
 package advanced_data_structure;
 
+import graph_elements.Vertex;
+
 public class DisjointSetForest {
 
     public static void makeSet(Vertex vertex) {
@@ -27,29 +29,6 @@ public class DisjointSetForest {
             vertex.setParent(findSet(vertex.getParent()));
         }
         return vertex.getParent();
-    }
-
-    public static class Vertex {
-
-        private int key;
-
-        private Vertex parent;
-
-        public int getKey() {
-            return key;
-        }
-
-        public void setKey(int key) {
-            this.key = key;
-        }
-
-        public Vertex getParent() {
-            return parent;
-        }
-
-        public void setParent(Vertex parent) {
-            this.parent = parent;
-        }
     }
 
 }
