@@ -1,6 +1,4 @@
 import algorithms.*;
-import edu.uci.ics.jung.algorithms.layout.AggregateLayout;
-import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.ISOMLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
@@ -15,6 +13,7 @@ import graph_elements.Vertex;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 
 public class Application extends JFrame {
 
@@ -55,8 +54,9 @@ public class Application extends JFrame {
                 return this;
             }
         });
-        context.setVertexShapeTransformer(node -> new Ellipse2D.Double(-12, -12, 24, 24));
-        context.setVertexLabelTransformer(node -> Integer.toString(node.getNumber()));
+//        context.setVertexShapeTransformer(node -> new Ellipse2D.Double(-12, -12, 24, 24));
+        context.setVertexShapeTransformer(node -> new Rectangle2D.Double(-30, -12, 60, 24));
+        context.setVertexLabelTransformer(node -> node.getName());
         context.setVertexFillPaintTransformer(node -> Color.WHITE);
     }
 

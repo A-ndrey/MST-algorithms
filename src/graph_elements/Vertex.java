@@ -8,51 +8,23 @@ public class Vertex {
 
     private static int numberOfNodes;
 
-    private int number;
+    private String name;
     private boolean isMarked;
     private int key;
-//    private int degree;
     private Vertex parent;
     private FibHeap.Entry<Vertex> node;
-//    private Vertex leftSib = this;
-//    private Vertex rightSib = this;
-//
-//    public Vertex getLeftSib() {
-//        return leftSib;
-//    }
-//
-//    public void setLeftSib(Vertex leftSib) {
-//        this.leftSib = leftSib;
-//    }
-//
-//    public Vertex getRightSib() {
-//        return rightSib;
-//    }
-//
-//    public void setRightSib(Vertex rightSib) {
-//        this.rightSib = rightSib;
-//    }
-//
-//    public Vertex getChild() {
-//        return child;
-//    }
-//
-//    public void setChild(Vertex child) {
-//        this.child = child;
-//    }
-//
-//    private Vertex child;
+
 
     public Vertex() {
-        number = ++numberOfNodes;
+        name = String.valueOf(++numberOfNodes);
     }
 
-    Vertex(int number) {
-        this.number = number;
+    public Vertex(String name) {
+        this.name = name;
     }
 
-    public int getNumber() {
-        return number;
+    public String getName() {
+        return name;
     }
 
     public static void clear() {
@@ -80,19 +52,19 @@ public class Vertex {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Vertex vertex = (Vertex) o;
-        return number == vertex.number;
+        return name.equals(vertex.name);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(number);
+        return Objects.hash(name);
     }
 
     @Override
     public String toString() {
         return "Vertex{" +
-                "number=" + number +
+                "name=" + name +
                 ", key=" + getKey() + '}';
     }
 
@@ -111,12 +83,4 @@ public class Vertex {
     public void setNode(FibHeap.Entry<Vertex> node) {
         this.node = node;
     }
-
-//    public int getDegree() {
-//        return degree;
-//    }
-
-//    public void setDegree(int degree) {
-//        this.degree = degree;
-//    }
 }

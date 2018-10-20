@@ -9,33 +9,35 @@ import java.util.Collections;
 
 public class TestAlgorithms {
 
-    private final int LOOP_COUNT = 10;
-    private Algorithm algorithm;
+    protected int LOOP_COUNT = 1;
+    protected Algorithm algorithm;
 
     public TestAlgorithms(Algorithm algorithm){
         this.algorithm = algorithm;
     }
 
-    public void start(int numberOfVertex, boolean isStronglyConnected){
-        long times[] = new long[LOOP_COUNT];
-        for(int i = 0; i < LOOP_COUNT; ++i){
-            System.out.print(i+1);
-            Graph<Vertex, Edge> graph = GraphProvider.getInstance()
-                    .getRandomCreated(numberOfVertex, isStronglyConnected);
-            long start = System.nanoTime();
-            algorithm.start(graph);
-            times[i] = System.nanoTime() - start;
-            System.out.print('\r');
+    public void start(boolean isStronglyConnected) {
+        System.out.println(algorithm.getClass().getSimpleName() + " with "
+                + (isStronglyConnected ? "strongly" : "weakly") + " connected graph" );
+        for (int countV = 1_000; countV <= 100_000; countV += 10_000) {
+            long times[] = new long[LOOP_COUNT];
+            Graph<Vertex, Edge> graph;
+            for (int i = 0; i < LOOP_COUNT; ++i) {
+                System.out.print(i + 1);
+                graph = GraphProvider.getInstance()
+                        .getRandomCreated(countV, isStronglyConnected);
+                long start = System.nanoTime();
+                algorithm.start(graph);
+                times[i] = System.nanoTime() - start;
+                System.out.print('\r');
+            }
+//            int allEdgesWeightsSum = getAllEdgesWeightsSum(graph.getEdges());
+//            int visibleEdgesWeightsSum = getVisibleEdgesWeightsSum(graph.getEdges());
+            System.out.println(Arrays.stream(times).sum() / LOOP_COUNT);
         }
-//        int allEdgesWeightsSum = getAllEdgesWeightsSum(graph.getEdges());
-//        int visibleEdgesWeightsSum = getVisibleEdgesWeightsSum(graph.getEdges());
-//        System.out.printf("%s\nTotal weights for all edges: %d\nTotal weights for edges in tree: %d\nTime: %d\n\n",
-//                algorithm.getClass().getSimpleName(), allEdgesWeightsSum, visibleEdgesWeightsSum, end-start);
-        System.out.printf("%s\nCount of vertices: %d\nTime (in Nano): %d\n\n" ,
-                algorithm.getClass().getSimpleName(), numberOfVertex, Arrays.stream(times).sum() / LOOP_COUNT / 10);
     }
 
-    private static int getVisibleEdgesWeightsSum(Collection<Edge> edges){
+    protected static int getVisibleEdgesWeightsSum(Collection<Edge> edges){
         int sum = 0;
         for(Edge e: edges){
             if (e.isVisible()) sum += e.getWeight();
@@ -43,7 +45,7 @@ public class TestAlgorithms {
         return sum;
     }
 
-    private static int getAllEdgesWeightsSum(Collection<Edge> edges){
+    protected static int getAllEdgesWeightsSum(Collection<Edge> edges){
         int sum = 0;
         for(Edge e: edges){
             sum += e.getWeight();

@@ -5,14 +5,11 @@ import edu.uci.ics.jung.graph.Graph;
 import graph_elements.Edge;
 import graph_elements.Vertex;
 
-import java.util.Comparator;
-
 public class PrimsAlgorithm implements Algorithm {
 
     @Override
     public void start(Graph<Vertex, Edge> graph) {
         FibHeap<Vertex> vertexPriorityQueue = new FibHeap<>();
-//        PriorityQueue<Vertex> vertexPriorityQueue = new PriorityQueue<>(graph.getVertexCount(), Comparator.comparingInt(Vertex::getKey));
         graph.getVertices().forEach( v -> {
             v.setKey(Integer.MAX_VALUE);
             v.setMarked(false);
